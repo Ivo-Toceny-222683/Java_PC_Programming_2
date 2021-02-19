@@ -1,0 +1,11 @@
+package Database;
+public class Osoby 
+{
+	public String meno;
+	public int rok_nar;
+	public int count_uvaz;
+	public static int max_uvaz = 1;
+	
+	
+	
+}

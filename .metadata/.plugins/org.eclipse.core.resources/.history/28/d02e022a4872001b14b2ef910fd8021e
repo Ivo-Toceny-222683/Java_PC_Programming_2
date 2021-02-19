@@ -1,0 +1,38 @@
+package Firma;
+
+import java.util.Scanner;
+
+public class DatabaseOperation
+{
+	public static void main(String[] args) 
+	{
+		int indexOsoby;
+		int novaVyskaUvaz;
+		
+		Databaze[] osoby = new Databaze[3];
+		
+		osoby[0] = new Databaze("Jozko Mrkvicka", 1999);
+		osoby[1] = new Databaze("Ferko Hrasok", 1990);
+		osoby[2] = new Databaze("Marienka Papierova", 2002);
+		
+		System.out.println("Zadajte maximalnu povolenu vysku uvazu:");
+		indexOsoby = Databaze.scanForInt()
+		
+		while(true)
+		{
+			
+			System.out.println("Zadajte index osoby, prosim (0/1/2):");
+			Scanner sc = new Scanner(System.in);
+			int index;
+			
+			while (!sc.hasNextInt())
+			{
+				System.out.println("Zadajte prosim cislo od 0-2:");
+				sc.next();
+			}
+			index = sc.nextInt();
+			
+		}
+	}
+
+}

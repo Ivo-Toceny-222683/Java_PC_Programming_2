@@ -1,0 +1,21 @@
+import java.util.Scanner;
+
+public class Test {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		System.out.println("Zadaj prve cislo:");
+		
+		Scanner sc = new Scanner(System.in);
+		int a;
+		double b;
+		
+		while (!sc.hasNextInt())
+		{
+			System.out.println("Zadal si nieco ine ako cislo, zadaj cislo:");
+		}
+		a = sc.nextInt();
+		
+	}
+
+}
