@@ -47,7 +47,7 @@ public class DatabaseOperation
 			}
 			else
 			{
-				System.out.println("Prekrocenie maximalneho uvazku!");
+				System.out.println("Prekrocenie maximalneho uvazku");
 			}
 		}
 	}

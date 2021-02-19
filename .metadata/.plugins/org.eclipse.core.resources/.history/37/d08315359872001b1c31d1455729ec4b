@@ -1,5 +1,7 @@
 package Firma;
 
+import java.util.Scanner;
+
 public class DatabaseOperation
 {
 	public static void main(String[] args) 
@@ -8,13 +10,10 @@ public class DatabaseOperation
 		int novaVyskaUvaz;
 		
 		Databaze[] osoby = new Databaze[3];
-		String[] mena = new String[] {"Jozko Mrkvicka", "Ferko Hrasok", "Marienka Papierova"};
-		int[] roky = new int[] {1999, 1990, 2002};
 		
-		for(int i = 0; i < osoby.length; i++)
-		{
-			osoby[i] = new Databaze(mena[i], roky[i]);
-		}
+		osoby[0] = new Databaze("Jozko Mrkvicka", 1999);
+		osoby[1] = new Databaze("Ferko Hrasok", 1990);
+		osoby[2] = new Databaze("Marienka Papierova", 2002);
 		
 		System.out.println("Zadajte maximalnu povolenu vysku uvazu:");
 		Databaze.Max_uvaz = Databaze.scanForInt();
@@ -47,7 +46,7 @@ public class DatabaseOperation
 			}
 			else
 			{
-				System.out.println("Prekrocenie maximalneho uvazku!");
+				System.out.println("Prekrocenie maximalneho uvazku");
 			}
 		}
 	}
