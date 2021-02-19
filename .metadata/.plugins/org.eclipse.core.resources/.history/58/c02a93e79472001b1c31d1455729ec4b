@@ -35,14 +35,7 @@ public class DatabaseOperation
 			
 			if(osoby[indexOsoby].checkNewUvaz(novaVyskaUvaz))
 			{
-				if(osoby[indexOsoby].Uvaz == Databaze.Max_uvaz)
-				{
-					System.out.println(osoby[indexOsoby].getUvaz() + ", MAXIMALNY UVAZOK!");
-				}
-				else
-				{
-					System.out.println(osoby[indexOsoby].getUvaz());
-				}		
+				System.out.println(osoby[indexOsoby].getUvaz());
 			}
 			else
 			{
