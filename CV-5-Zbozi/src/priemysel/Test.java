@@ -7,8 +7,7 @@ public class Test {
 		int time;
 		
 		Zbozi[] nakup = new Zbozi[4];
-		Potravina rohlik = new Potravina(1, "Rohlik", 1.5);
-		nakup[0] = rohlik;
+		nakup[0] = new Potravina(1, "Rohlik", 1.5);
 		nakup[1] = new Naradie(24, "Klieste", 278.0);
 		nakup[2] = new Potravina(6, "Chlieb", 20.8);
 		nakup[3] = new Potravina(20, "Jablko", 51.0);
