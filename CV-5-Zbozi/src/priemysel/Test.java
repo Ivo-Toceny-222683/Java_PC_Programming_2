@@ -4,7 +4,7 @@ public class Test {
 
 	public static void main(String[] args) 
 	{
-		int time;
+		double time;
 		
 		Zbozi[] nakup = new Zbozi[4];
 		nakup[0] = new Potravina(1, "Rohlik", 1.5);
@@ -14,9 +14,17 @@ public class Test {
 		
 		for(int prvky = 0; prvky < nakup.length; prvky++)
 		{
-			time = (nakup[prvky] instanceof Potravina) ? ((Potravina)nakup[prvky]).getTrvanlivost() : ((Naradie)nakup[prvky]).getZarucnaDoba();
-			System.out.println(nakup[prvky].getName() + ", cena: " + nakup[prvky].getPrice() + ", trvanlivost: " 
-								 + time + " " + nakup[prvky].getJednotka());
+			time = (nakup[prvky] instanceof Potravina) ? ((Potravina)nakup[prvky]).getTrvanlivost() : 1.1;
+			
+			if(time == 1.1)
+			{
+				System.out.println(nakup[prvky].getName() + ", cena: " + nakup[prvky].getPrice());
+			}
+			else
+			{
+				System.out.println(nakup[prvky].getName() + ", cena: " + nakup[prvky].getPrice() + ", trvanlivost: " 
+						 + (int)time + " " + nakup[prvky].getJednotka());
+			}		
 		}
 	}
 
