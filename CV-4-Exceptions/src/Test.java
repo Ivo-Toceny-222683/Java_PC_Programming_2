@@ -1,3 +1,5 @@
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -24,7 +26,7 @@ public class Test {
 
 
 	public static void main(String[] args){	
-		// TODO Auto-generated method stub
+		FileOutputStream file = null;
 		Scanner sc=new Scanner(System.in);
 		Databaze mojeDatabaze=new Databaze(1);
 		int idx;
@@ -38,7 +40,10 @@ public class Test {
 			System.out.println("2 .. vlozeni noveho studenta");
 			System.out.println("3 .. nastaveni prumeru studenta");
 			System.out.println("4 .. vypis informace o studentovi");
-			System.out.println("5 .. ukonceni aplikace");
+			System.out.println("5 .. vypis celej databaze");
+			System.out.println("6 .. vypis celej databaze do suboru");
+			System.out.println("7 .. vpis celej databaze zo suboru");
+			System.out.println("8 .. ukonceni aplikace");
 			volba=pouzeCelaCisla(sc);
 			switch(volba)
 			{
@@ -137,7 +142,7 @@ public class Test {
 					{
 						Student info=mojeDatabaze.getStudent(idx);
 						System.out.println("Jmeno: " + info.getJmeno() + 
-								" rok narozeni: " + info.getRocnik() + " prumer: " + info.getStudijniPrumer() + "\n");
+								", rok narozeni: " + info.getRocnik() + ", prumer: " + info.getStudijniPrumer() + "\n");
 						break;
 					}
 					catch(ArrayIndexOutOfBoundsException e)
@@ -167,10 +172,83 @@ public class Test {
 						sc.nextLine();
 						break;
 					}
-					
 				case 5:
+					try
+					{
+						mojeDatabaze.PrintDatabase();
+						break;
+					}
+					catch(MyExceptions e)
+					{
+						System.out.println(e.toString());
+						sc.nextLine();
+						break;
+					}
+					catch(NullPointerException e)
+					{
+						System.out.println("Nastala vyjimka typu "+e.toString() + 
+								", \nnajprv musite vytvorit studenta aby ste mohli vypisovat, vracim spatky do menu.\n");
+						sc.nextLine();
+						break;
+					}
+				case 6:
+					try
+					{
+						file = mojeDatabaze.FileDatabaseFill("pokus.txt");
+						break;
+					}
+					catch(MyExceptions e)
+					{
+						System.out.println(e.toString());
+						sc.nextLine();
+						break;
+					}
+					catch(IOException e)
+					{
+						System.out.println(e.toString());
+						sc.nextLine();
+						break;
+					}
+					finally
+					{
+						try
+						{
+							file.close();
+						} 
+						catch (IOException e)
+						{				
+							System.out.println(e.toString());
+						}
+					}
+				case 7:
+					try
+					{
+						mojeDatabaze.getDatabase("pokus.txt");
+						break;
+					}
+					catch(IOException e)
+					{
+						System.out.println(e.toString());
+						sc.nextLine();
+						break;
+					}
+					catch(MyExceptions e)
+					{
+						System.out.println(e.toString());
+						sc.nextLine();
+						break;
+					}
+					catch(NumberFormatException e)
+					{
+						System.out.println(e.toString());
+						sc.nextLine();
+						break;
+					}
+				case 8:
 					run=false;
 					break;
+					
+				
 			}
 			
 		}

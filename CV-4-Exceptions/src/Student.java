@@ -37,9 +37,7 @@ public class Student {
 		else
 		{
 			this.studijniPrumer = studijniPrumer;
-		}
-
-		
+		}		
 	}
 
 	private String jmeno;

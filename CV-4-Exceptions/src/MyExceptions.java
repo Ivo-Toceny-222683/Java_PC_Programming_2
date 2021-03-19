@@ -1,6 +1,11 @@
 
 public class MyExceptions extends java.lang.Exception
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public MyExceptions()
 	{
 		super("Zadajte najprv priemer studentovi, az potom ho citajte, prosim.\n");
