@@ -1,14 +1,15 @@
 
 public class MyExceptions extends java.lang.Exception
 {
+	//Was needed because of warning
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-	public MyExceptions()
+	
+	public MyExceptions(String message)
 	{
-		super("Zadajte najprv priemer studentovi, az potom ho citajte, prosim.\n");
+		super(message);
 	}
 	
 	public MyExceptions(float average)

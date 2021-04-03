@@ -20,6 +20,7 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="D:\Documents\Toceny_222683\Java_PC_Programming_2\db-connection"/>
 			<item value="D:\Documents\Toceny_222683\Java_PC_Programming_2\CV-4-Exceptions\src"/>
 			<item value="D:\Documents\Toceny_222683\Java_PC_Programming_2\CV-4-Exceptions"/>
 		</list>

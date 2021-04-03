@@ -27,52 +27,29 @@ public class Test {
 
 	public static void main(String[] args){	
 		FileOutputStream file = null;
-		Scanner sc=new Scanner(System.in);
-		Databaze mojeDatabaze=new Databaze(1);
-		int idx;
+		Scanner sc= new Scanner(System.in);
+		Databaze mojeDatabaze = new Databaze();
+		String jmeno;
 		float prumer;
 		int volba;
 		boolean run=true;
 		while(run)
 		{
 			System.out.println("Vyberte pozadovanou cinnost:");
-			System.out.println("1 .. vytvoreni nove databaze");
-			System.out.println("2 .. vlozeni noveho studenta");
+			System.out.println("1 .. vlozeni noveho studenta");
+			System.out.println("2 .. vymazanie studenta");
 			System.out.println("3 .. nastaveni prumeru studenta");
 			System.out.println("4 .. vypis informace o studentovi");
-			System.out.println("5 .. vypis celej databaze");
-			System.out.println("6 .. vypis celej databaze do suboru");
-			System.out.println("7 .. vpis celej databaze zo suboru");
-			System.out.println("8 .. ukonceni aplikace");
+			System.out.println("5 .. vypis mien vsetkych studentov");
+			System.out.println("6 .. vypis databaze");
+			System.out.println("7 .. vypis celej databaze do suboru");
+			System.out.println("8 .. vpis celej databaze zo suboru");
+			System.out.println("9 .. ukonceni aplikace");
 			volba=pouzeCelaCisla(sc);
 			switch(volba)
 			{
 				case 1:
-					// InputMisMatchException if we set sth else than number, 
-					// Negative array size makes another Exception
-					try
-					{
-						System.out.println("Zadejte pocet studentu");
-						mojeDatabaze=new Databaze(sc.nextInt());
-						break;
-					}
-					catch(InputMismatchException e)
-					{
-						System.out.println("Nastala vyjimka typu: " +e.toString() + 
-								". \nZadajte prosim cislo, nie ine znaky, vracim spatky do menu.\n");
-						sc.nextLine();
-						break;
-					}
-					catch(NegativeArraySizeException e)
-					{
-						System.out.println("Nastala vyjimka typu: " +e.toString() + 
-								", \nzadavajte kladne nezaporne cisla prosim, vracim spatky do menu.\n");
-						sc.nextLine();
-						break;
-					}
-				case 2:
 					// InputMismatch - if age set as sth else than number, 
-					// ArrayIndexOutOfBounds - if we add more students than is lenght of database
 					try
 					{
 						mojeDatabaze.setStudent();
@@ -85,38 +62,38 @@ public class Test {
 						sc.nextLine();
 						break;
 					}
-					catch(ArrayIndexOutOfBoundsException e)
+				case 2:
+					System.out.println("Zadejte jmeno studenta na vymazanie");
+					try
 					{
-						System.out.println("Nastala vyjimka typu "+e.toString() + 
-								", \ntolko priestoru nemame, zvacsite najprv databazu, vracim spatky do menu.\n");
-						sc.nextLine();
+						jmeno=sc.next();
+						mojeDatabaze.DeleteStudent(jmeno);
+						break;
+					}
+					catch(MyExceptions e)
+					{
+						System.out.println(e.toString());
 						break;
 					}
 				case 3:
-					System.out.println("Zadejte index a prumer studenta");
-					// NullPointer - if we try to assing value to non existent student yet inside array bounds, 
-					// OutOfBounds - try to assign outside of array
+					System.out.println("Zadejte jmeno a prumer studenta");
 					// InputMismatch - if average is sth else than number
+					// MyException - if there was not set average before or it checks name before getting average, 
+					//               if its not in database, case returns to main menu
 					try
 					{
-						idx=sc.nextInt();
+						jmeno=sc.next();
 						prumer =sc.nextFloat();
-						mojeDatabaze.setPrumer(idx,prumer);
-						break;
-					}
-					catch(NullPointerException e)
-					{
-						System.out.println("Nastala vyjimka typu "+e.toString() + 
-								", \nnajprv musite vytvorit studenta aby ste mohli pridavat prumer, vracim spatky do menu.\n");
-						sc.nextLine();
-						break;
-					}
-					catch(ArrayIndexOutOfBoundsException e)
-					{
-						System.out.println("Nastala vyjimka typu "+e.toString() + 
-								", \ntolko studentov nemame, vyberte mensie cislo, vracim spatky do menu.\n");
-						sc.nextLine();
-						break;
+						if(mojeDatabaze.getPrvkyDatabaze().containsKey(jmeno))
+						{
+							mojeDatabaze.setPrumer(jmeno,prumer);
+							break;
+						}
+						else
+						{
+							throw new MyExceptions("Student s menom " + jmeno + " nie je v databaze.\n");
+						}
+						
 					}
 					catch(InputMismatchException e)
 					{
@@ -133,30 +110,14 @@ public class Test {
 					}
 					
 				case 4:
-					System.out.println("Zadejte index studenta");
-					idx=sc.nextInt();
-					// Array out of bounds if number below 0 or higher than number of students also, 
-					// NullPointer - if inside array but student not made yet
+					System.out.println("Zadejte jmeno studenta");
+					jmeno=sc.next(); 
 					// InputMismatch - if index is set as not a number
 					try
 					{
-						Student info=mojeDatabaze.getStudent(idx);
+						Student info=mojeDatabaze.getStudent(jmeno);
 						System.out.println("Jmeno: " + info.getJmeno() + 
 								", rok narozeni: " + info.getRocnik() + ", prumer: " + info.getStudijniPrumer() + "\n");
-						break;
-					}
-					catch(ArrayIndexOutOfBoundsException e)
-					{
-						System.out.println("Nastala vyjimka typu "+e.toString() +
-								", \ntolko studentov nemame, vyberte mensie cislo, vracim spatky do menu.\n");
-						sc.nextLine();
-						break;
-					}
-					catch(NullPointerException e)
-					{
-						System.out.println("Nastala vyjimka typu "+e.toString() + 
-								", \nnajprv musite vytvorit studenta aby ste mohli vypisovat, vracim spatky do menu.\n");
-						sc.nextLine();
 						break;
 					}
 					catch(InputMismatchException e)
@@ -172,7 +133,12 @@ public class Test {
 						sc.nextLine();
 						break;
 					}
+					
 				case 5:
+					mojeDatabaze.PrintNames();
+					break;
+					
+				case 6:
 					try
 					{
 						mojeDatabaze.PrintDatabase();
@@ -184,14 +150,8 @@ public class Test {
 						sc.nextLine();
 						break;
 					}
-					catch(NullPointerException e)
-					{
-						System.out.println("Nastala vyjimka typu "+e.toString() + 
-								", \nnajprv musite vytvorit studenta aby ste mohli vypisovat, vracim spatky do menu.\n");
-						sc.nextLine();
-						break;
-					}
-				case 6:
+
+				case 7:
 					try
 					{
 						file = mojeDatabaze.FileDatabaseFill("pokus.txt");
@@ -220,7 +180,7 @@ public class Test {
 							System.out.println(e.toString());
 						}
 					}
-				case 7:
+				case 8:
 					try
 					{
 						mojeDatabaze.getDatabase("pokus.txt");
@@ -244,7 +204,7 @@ public class Test {
 						sc.nextLine();
 						break;
 					}
-				case 8:
+				case 9:
 					run=false;
 					break;
 					

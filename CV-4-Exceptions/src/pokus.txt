@@ -1,0 +1,3 @@
+Jmeno: ivo, rok narozeni: 34, prumer: 3.4
+Jmeno: siska, rok narozeni: 2007, prumer: 2.0
+Jmeno: deniska, rok narozeni: 1999, prumer: 1.0

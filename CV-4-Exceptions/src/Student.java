@@ -16,11 +16,12 @@ public class Student {
 		return rocnik;
 	}
 	
+	//If name is not inside database, its taken care of inside test when calling these methods by .containsKey(name)
 	public float getStudijniPrumer() throws MyExceptions
 	{
 		if(studijniPrumer == 0)
 		{
-			throw new MyExceptions();
+			throw new MyExceptions("Najprv zadajte priemer pre studenta: " + this.jmeno + ", nasledne vypiste databazu\n");
 		}
 		else
 		{

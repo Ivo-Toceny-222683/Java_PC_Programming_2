@@ -1,4 +1,5 @@
 import java.io.File;
+import java.util.HashMap;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -8,36 +9,30 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class Databaze {
-	public Databaze(int pocetPrvku)
-	{
-		prvkyDatabaze=new Student[pocetPrvku];
-		sc=new Scanner(System.in);
-	}
-	
 	public void setStudent()
 	{
 		System.out.println("Zadejte jmeno studenta, rok narozeni");
 		String jmeno=sc.next();
 		int rok=sc.nextInt();
-		prvkyDatabaze[posledniStudent++]=new Student(jmeno,rok);
+		prvkyDatabaze.put(jmeno, new Student(jmeno,rok));
 	}
 	
-	public Student getStudent(int idx)
+	public Student getStudent(String meno)
 	{
-		return prvkyDatabaze[idx];
+		return prvkyDatabaze.get(meno);
 	}
 	
-	public void setPrumer(int idx, float prumer) throws MyExceptions
+	public void setPrumer(String meno, float prumer) throws MyExceptions
 	{
-		prvkyDatabaze[idx].setStudijniPrumer(prumer);
+		prvkyDatabaze.get(meno).setStudijniPrumer(prumer);
 	}
 	
 	public void PrintDatabase() throws MyExceptions
 	{
-		for(int index = 0; index < prvkyDatabaze.length; index++)
+		for(String name : prvkyDatabaze.keySet())
 		{
-			System.out.println("Jmeno: " + prvkyDatabaze[index].getJmeno() + 
-					", rok narozeni: " + prvkyDatabaze[index].getRocnik() + ", prumer: " + prvkyDatabaze[index].getStudijniPrumer());
+			System.out.println("Jmeno: " + name + 
+					", rok narozeni: " + prvkyDatabaze.get(name).getRocnik() + ", prumer: " + prvkyDatabaze.get(name).getStudijniPrumer());
 		}
 	}
 	
@@ -47,11 +42,11 @@ public class Databaze {
 		byte b[];
 		
 		File f = new File(name);
-		FileOutputStream txt = new FileOutputStream(f, false);
-		for(int index = 0; index < prvkyDatabaze.length; index++)
+		FileOutputStream txt = new FileOutputStream(f, false);	
+		for(String meno : prvkyDatabaze.keySet())
 		{
-			s = "Jmeno: " + prvkyDatabaze[index].getJmeno() + 
-					", rok narozeni: " + prvkyDatabaze[index].getRocnik() + ", prumer: " + prvkyDatabaze[index].getStudijniPrumer() + "\n";
+			s = "Jmeno: " + meno + ", rok narozeni: " + 
+					prvkyDatabaze.get(meno).getRocnik() + ", prumer: " + prvkyDatabaze.get(meno).getStudijniPrumer() + "\n";
 			b =s.getBytes();
 			txt.write(b);
 		}
@@ -63,7 +58,7 @@ public class Databaze {
 		List<String> lines = Files.lines(Paths.get(name)).collect(Collectors.toList());
 		String[] elements;
 				
-		prvkyDatabaze=new Student[lines.size()];
+		prvkyDatabaze= new HashMap<String, Student>();
 		for(int index = 0; index < lines.size(); index++)
 		{
 			elements = lines.get(index).split(",", 3);
@@ -71,11 +66,37 @@ public class Databaze {
 			elements[1] = elements[1].replace(" rok narozeni: ", "");
 			elements[2] = elements[2].replace(" prumer: ", "");
 			
-			prvkyDatabaze[index] = new Student(elements[0], Integer.parseInt(elements[1]));
-			prvkyDatabaze[index].setStudijniPrumer(Float.parseFloat(elements[2]));
+			prvkyDatabaze.put(elements[0], new Student(elements[0], Integer.parseInt(elements[1])));
+			prvkyDatabaze.get(elements[0]).setStudijniPrumer((Float.parseFloat(elements[2])));
 		}
 	}
-	private Scanner sc;
-	private Student [] prvkyDatabaze;
-	private int posledniStudent;
+	
+	public void PrintNames()
+	{
+		System.out.println("Names:");
+		for(String name : prvkyDatabaze.keySet())
+		{
+			System.out.println(name);
+		}
+	}
+	
+	public void DeleteStudent(String name) throws MyExceptions
+	{
+		if(prvkyDatabaze.containsKey(name))
+		{
+			prvkyDatabaze.remove(name);
+		}
+		else
+		{
+			throw new MyExceptions("Databaza neobsahuje studenta s menom: " + name + "\n");
+		}
+	}
+	
+	public HashMap<String, Student> getPrvkyDatabaze()
+	{
+		return prvkyDatabaze;
+	}
+	
+	private Scanner sc = new Scanner(System.in);
+	private HashMap<String, Student> prvkyDatabaze = new HashMap<String, Student>();
 }
