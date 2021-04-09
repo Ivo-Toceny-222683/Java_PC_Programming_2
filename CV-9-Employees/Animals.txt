@@ -1,0 +1,5 @@
+Cat of age: 2
+Dog of age: 9
+Pig of age: 15
+Cow of age: 10
+Goat of age: 4
